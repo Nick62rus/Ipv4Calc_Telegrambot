@@ -3,7 +3,7 @@ import time
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot('tokenbot')
+bot = telebot.TeleBot('tokenid')
 
 # Стартовое сообщение
 @bot.message_handler(commands=['start'])
@@ -49,16 +49,14 @@ def subnets_calc(pm,network):
             substring=('\n'.join(map(str, sublist))) # Преобразование в строку списка Ipv4Networks, удаляется ненужная информация, на вывод остается информаци типа ip/mask
             ip_list=substring.split('\n') # Обратное преобразование в читаемый список
             counter = 0 # Установка счетчика
-            mark=0
             for ipnetwork in range(len(ip_list)): # Цикл перебора ip подсетей в списке ip_list, установка таймера на вывод сообщений для того чтобы избежать ошибок
-                mark += 1
                 counter += 1
                 net=ipaddress.ip_network(ip_list[ipnetwork])
                 if (counter % 5) == 0:
                     time.sleep(5)
                     print(counter)
                 else:
-                    bot.send_message(pm.chat.id, f"Подсеть {mark}: {ip_list[ipnetwork]}\n"
+                    bot.send_message(pm.chat.id, f"Подсеть {counter}: {ip_list[ipnetwork]}\n"
                                                  f"кол-во доступных хостов подсети: {net.num_addresses - 2} \n"
                                                  f"Адрес сети: {net.network_address}\n"
                                                  f"Бродкаст: {net.broadcast_address}\n"

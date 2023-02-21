@@ -3,7 +3,7 @@ import time
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot('tokenid')
+bot = telebot.TeleBot('')
 
 # Стартовое сообщение
 @bot.message_handler(commands=['start'])
@@ -55,12 +55,12 @@ def subnets_calc(pm,network):
                 if (counter % 5) == 0:
                     time.sleep(5)
                     print(counter)
-                else:
-                    bot.send_message(pm.chat.id, f"Подсеть {counter}: {ip_list[ipnetwork]}\n"
-                                                 f"кол-во доступных хостов подсети: {net.num_addresses - 2} \n"
-                                                 f"Адрес сети: {net.network_address}\n"
-                                                 f"Бродкаст: {net.broadcast_address}\n"
-                                                 f"Диапазон доступных адресов: {net[1]} - {net[-2]}\n"
+
+                bot.send_message(pm.chat.id, f"Подсеть {counter}: {ip_list[ipnetwork]}\n"
+                                            f"кол-во доступных хостов подсети: {net.num_addresses - 2} \n"
+                                            f"Адрес сети: {net.network_address}\n"
+                                            f"Бродкаст: {net.broadcast_address}\n"
+                                            f"Диапазон доступных адресов: {net[1]} - {net[-2]}\n"
 )
         except ValueError:
             bot.send_message(pm.chat.id, "Попробуйте другую комбинацию")
